@@ -228,12 +228,25 @@ export async function safelyExecuteWithTimeout(
 }
 
 /**
+ * Checks if the given address is a valid TRON address.
+ *
+ * @param address The address to check.
+ * @returns Whether the address is a valid TRON address.
+ */
+function isTRONAddress(address: string) {
+  return /^[A-Za-z9]{34}$/.test(address);
+}
+
+/**
  * Convert an address to a checksummed hexidecimal address.
  *
  * @param address - The address to convert.
  * @returns A 0x-prefixed hexidecimal checksummed address.
  */
 export function toChecksumHexAddress(address: string) {
+  // Tron address
+  if (isTRONAddress(address)) return address;
+
   const hexPrefixed = addHexPrefix(address);
   if (!isHexString(hexPrefixed)) {
     // Version 5.1 of ethereumjs-utils would have returned '0xY' for input 'y'
