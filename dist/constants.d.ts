@@ -26,6 +26,8 @@ export declare const TESTNET_TICKER_SYMBOLS: {
     GOERLI: string;
     ROPSTEN: string;
     KOVAN: string;
+    TRONSHASTA: string;
+    TRONNILE: string;
 };
 export declare const TESTNET_NETWORK_TYPE_TO_TICKER_SYMBOL: {
     [K in NetworkType]: string;

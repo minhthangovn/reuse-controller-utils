@@ -10,5 +10,9 @@ var NetworksChainId;
     NetworksChainId["ropsten"] = "3";
     NetworksChainId["localhost"] = "";
     NetworksChainId["rpc"] = "";
+    // Tron Network
+    NetworksChainId["TronMainet"] = "728126428";
+    NetworksChainId["TronShasta"] = "2494104990";
+    NetworksChainId["TronNile"] = "3448148188";
 })(NetworksChainId = exports.NetworksChainId || (exports.NetworksChainId = {}));
 //# sourceMappingURL=types.js.map

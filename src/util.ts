@@ -234,7 +234,7 @@ export async function safelyExecuteWithTimeout(
  * @returns Whether the address is a valid TRON address.
  */
 function isTRONAddress(address: string) {
-  return /^[A-Za-z9]{34}$/.test(address);
+  return /^(T|4)[A-Za-z1-9]{33}$/.test(address);
 }
 
 /**
