@@ -34,6 +34,9 @@ exports.TESTNET_TICKER_SYMBOLS = {
     GOERLI: 'GoerliETH',
     ROPSTEN: 'RopstenETH',
     KOVAN: 'KovanETH',
+    // Tron testnet
+    TRONSHASTA: 'Shasta',
+    TRONNILE: 'Nile',
 };
 // TYPED NetworkType TICKER SYMBOLS
 exports.TESTNET_NETWORK_TYPE_TO_TICKER_SYMBOL = {
@@ -44,6 +47,9 @@ exports.TESTNET_NETWORK_TYPE_TO_TICKER_SYMBOL = {
     mainnet: '',
     rpc: '',
     localhost: '',
+    TronMainet: 'Tron',
+    TronShasta: 'ShastaTron',
+    TronNile: 'NileTron',
 };
 // APIs
 exports.OPENSEA_PROXY_URL = 'https://proxy.metaswap.codefi.network/opensea/v1/api/v1';

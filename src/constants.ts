@@ -39,6 +39,9 @@ export const TESTNET_TICKER_SYMBOLS = {
   GOERLI: 'GoerliETH',
   ROPSTEN: 'RopstenETH',
   KOVAN: 'KovanETH',
+  // Tron testnet
+  TRONSHASTA: 'Shasta',
+  TRONNILE: 'Nile',
 };
 // TYPED NetworkType TICKER SYMBOLS
 export const TESTNET_NETWORK_TYPE_TO_TICKER_SYMBOL: {
@@ -51,6 +54,9 @@ export const TESTNET_NETWORK_TYPE_TO_TICKER_SYMBOL: {
   mainnet: '',
   rpc: '',
   localhost: '',
+  TronMainet: 'Tron',
+  TronShasta: 'ShastaTron',
+  TronNile: 'NileTron',
 };
 
 // APIs
