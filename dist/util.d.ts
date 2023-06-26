@@ -40,6 +40,8 @@ export declare function weiHexToGweiDec(hex: string): any;
  * @returns URL to buy ETH based on network.
  */
 export declare function getBuyURL(networkCode?: string, address?: string, amount?: number): string | undefined;
+export declare function isTRX(chainId: string): boolean;
+export declare function getRPCURL(chainId: string): string;
 /**
  * Converts a hex string to a BN object.
  *

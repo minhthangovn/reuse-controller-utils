@@ -1,7 +1,7 @@
 /**
  * Human-readable network name
  */
-export declare type NetworkType = "kovan" | "localhost" | "mainnet" | "rinkeby" | "goerli" | "ropsten" | "rpc" | "TronMainet" | "TronShasta" | "TronNile";
+export declare type NetworkType = 'kovan' | 'localhost' | 'mainnet' | 'rinkeby' | 'goerli' | 'ropsten' | 'rpc' | 'TronMainet' | 'TronShasta' | 'TronNile';
 export declare enum NetworksChainId {
     mainnet = "1",
     kovan = "42",

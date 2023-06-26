@@ -9,7 +9,8 @@ import {
 import { fromWei, toWei } from 'ethjs-unit';
 import ensNamehash from 'eth-ens-namehash';
 import deepEqual from 'fast-deep-equal';
-import type { Json } from './types';
+import type { Json} from './types';
+import { ListTronNetwork, ListTronChainId, ListRPCURL} from './constants';
 
 const TIMEOUT_ERROR = new Error('timeout');
 
@@ -101,6 +102,7 @@ export function getBuyURL(
   address?: string,
   amount = 5,
 ): string | undefined {
+  const {TronMainet, TronShasta, TronNile} = ListTronNetwork;
   switch (networkCode) {
     case '1':
       return `https://buy.coinbase.com/?code=9ec56d01-7e81-5017-930c-513daa27bb6a&amount=${amount}&address=${address}&crypto_currency=ETH`;
@@ -112,9 +114,27 @@ export function getBuyURL(
       return 'https://goerli-faucet.slock.it/';
     case '42':
       return 'https://github.com/kovan-testnet/faucet';
+
+    // TRX network
+    case TronMainet.chaiId :
+      return TronMainet.url;
+    case TronShasta.chainId:
+      return TronShasta.url;
+    case TronNile.chainId:
+      return TronNile.url;
+
     default:
       return undefined;
   }
+}
+
+
+export function isTRX(chainId: string) {
+  return ListTronChainId.indexOf(chainId) !== -1
+}
+
+export function getRPCURL(chainId: string) {
+  return ListRPCURL[chainId];
 }
 
 /**
@@ -234,6 +254,10 @@ export async function safelyExecuteWithTimeout(
  * @returns Whether the address is a valid TRON address.
  */
 function isTRONAddress(address: string) {
+  return /^(T|4)[A-Za-z1-9]{33}$/.test(address);
+}
+
+function isSmartContractTRONAddress(address: string) {
   return /^(T|4)[A-Za-z1-9]{33}$/.test(address);
 }
 
@@ -431,6 +455,10 @@ export function query(
   method: string,
   args: any[] = [],
 ): Promise<any> {
+  // console.log("🌈🌈🌈🌈🌈🌈🌈🌈🌈 query 🌈🌈🌈🌈🌈🌈🌈🌈🌈");
+  // console.log("🌈🌈🌈 method: ", method);
+  // console.log("🌈🌈🌈 args: ", args);
+
   return new Promise((resolve, reject) => {
     const cb = (error: Error, result: any) => {
       if (error) {
@@ -441,8 +469,10 @@ export function query(
     };
 
     if (typeof ethQuery[method] === 'function') {
+      console.log('🌈🌈🌈 function: ', method);
       ethQuery[method](...args, cb);
     } else {
+      console.log('🌈🌈🌈 sendAsync: ', method);
       ethQuery.sendAsync({ method, params: args }, cb);
     }
   });

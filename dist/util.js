@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isValidJson = exports.isNonEmptyArray = exports.hasProperty = exports.isPlainObject = exports.convertHexToDecimal = exports.query = exports.normalizeEnsName = exports.timeoutFetch = exports.fetchWithErrorHandling = exports.handleFetch = exports.successfulFetch = exports.isSmartContractCode = exports.isValidHexAddress = exports.toChecksumHexAddress = exports.safelyExecuteWithTimeout = exports.safelyExecute = exports.toHex = exports.fromHex = exports.hexToText = exports.hexToBN = exports.getBuyURL = exports.weiHexToGweiDec = exports.gweiDecToWEIBN = exports.fractionBN = exports.BNToHex = void 0;
+exports.isValidJson = exports.isNonEmptyArray = exports.hasProperty = exports.isPlainObject = exports.convertHexToDecimal = exports.query = exports.normalizeEnsName = exports.timeoutFetch = exports.fetchWithErrorHandling = exports.handleFetch = exports.successfulFetch = exports.isSmartContractCode = exports.isValidHexAddress = exports.toChecksumHexAddress = exports.safelyExecuteWithTimeout = exports.safelyExecute = exports.toHex = exports.fromHex = exports.hexToText = exports.hexToBN = exports.getRPCURL = exports.isTRX = exports.getBuyURL = exports.weiHexToGweiDec = exports.gweiDecToWEIBN = exports.fractionBN = exports.BNToHex = void 0;
 const ethereumjs_util_1 = require("ethereumjs-util");
 const ethjs_unit_1 = require("ethjs-unit");
 const eth_ens_namehash_1 = __importDefault(require("eth-ens-namehash"));
 const fast_deep_equal_1 = __importDefault(require("fast-deep-equal"));
+const constants_1 = require("./constants");
 const TIMEOUT_ERROR = new Error('timeout');
 /**
  * Converts a BN object to a hex string with a '0x' prefix.
@@ -91,6 +92,7 @@ exports.weiHexToGweiDec = weiHexToGweiDec;
  * @returns URL to buy ETH based on network.
  */
 function getBuyURL(networkCode = '1', address, amount = 5) {
+    const { TronMainet, TronShasta, TronNile } = constants_1.ListTronNetwork;
     switch (networkCode) {
         case '1':
             return `https://buy.coinbase.com/?code=9ec56d01-7e81-5017-930c-513daa27bb6a&amount=${amount}&address=${address}&crypto_currency=ETH`;
@@ -102,11 +104,26 @@ function getBuyURL(networkCode = '1', address, amount = 5) {
             return 'https://goerli-faucet.slock.it/';
         case '42':
             return 'https://github.com/kovan-testnet/faucet';
+        // TRX network
+        case TronMainet.chaiId:
+            return TronMainet.url;
+        case TronShasta.chainId:
+            return TronShasta.url;
+        case TronNile.chainId:
+            return TronNile.url;
         default:
             return undefined;
     }
 }
 exports.getBuyURL = getBuyURL;
+function isTRX(chainId) {
+    return constants_1.ListTronChainId.indexOf(chainId) !== -1;
+}
+exports.isTRX = isTRX;
+function getRPCURL(chainId) {
+    return constants_1.ListRPCURL[chainId];
+}
+exports.getRPCURL = getRPCURL;
 /**
  * Converts a hex string to a BN object.
  *
@@ -222,6 +239,9 @@ exports.safelyExecuteWithTimeout = safelyExecuteWithTimeout;
  * @returns Whether the address is a valid TRON address.
  */
 function isTRONAddress(address) {
+    return /^(T|4)[A-Za-z1-9]{33}$/.test(address);
+}
+function isSmartContractTRONAddress(address) {
     return /^(T|4)[A-Za-z1-9]{33}$/.test(address);
 }
 /**
@@ -401,6 +421,9 @@ exports.normalizeEnsName = normalizeEnsName;
  * @returns Promise resolving the request.
  */
 function query(ethQuery, method, args = []) {
+    // console.log("🌈🌈🌈🌈🌈🌈🌈🌈🌈 query 🌈🌈🌈🌈🌈🌈🌈🌈🌈");
+    // console.log("🌈🌈🌈 method: ", method);
+    // console.log("🌈🌈🌈 args: ", args);
     return new Promise((resolve, reject) => {
         const cb = (error, result) => {
             if (error) {
@@ -410,9 +433,11 @@ function query(ethQuery, method, args = []) {
             resolve(result);
         };
         if (typeof ethQuery[method] === 'function') {
+            console.log('🌈🌈🌈 function: ', method);
             ethQuery[method](...args, cb);
         }
         else {
+            console.log('🌈🌈🌈 sendAsync: ', method);
             ethQuery.sendAsync({ method, params: args }, cb);
         }
     });

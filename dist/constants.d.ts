@@ -35,3 +35,15 @@ export declare const TESTNET_NETWORK_TYPE_TO_TICKER_SYMBOL: {
 export declare const OPENSEA_PROXY_URL = "https://proxy.metaswap.codefi.network/opensea/v1/api/v1";
 export declare const OPENSEA_API_URL = "https://api.opensea.io/api/v1";
 export declare const OPENSEA_TEST_API_URL = "https://testnets-api.opensea.io/api/v1";
+declare type IListTronNetwork = {
+    [key: string]: {
+        [key: string]: string;
+    };
+};
+export declare const ListTronNetwork: IListTronNetwork;
+declare type IListRPCURL = {
+    [key: string]: string;
+};
+export declare const ListRPCURL: IListRPCURL;
+export declare const ListTronChainId: string[];
+export {};
