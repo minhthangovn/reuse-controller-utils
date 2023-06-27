@@ -37,3 +37,6 @@ export type Json =
   | { [prop: string]: Json };
 
 
+export type IListTronNetwork = { [key: string]: { [key: string]: string } };
+export type IListRPCURL = { [key: string]: string };
+

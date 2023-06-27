@@ -1,4 +1,4 @@
-import { NetworkType } from './types';
+import type { NetworkType, IListTronNetwork, IListRPCURL } from './types';
 
 export const MAINNET = 'mainnet';
 export const RPC = 'rpc';
@@ -65,14 +65,12 @@ export const OPENSEA_PROXY_URL =
 export const OPENSEA_API_URL = 'https://api.opensea.io/api/v1';
 export const OPENSEA_TEST_API_URL = 'https://testnets-api.opensea.io/api/v1';
 
-type IListTronNetwork = { [key: string]: { [key: string]: string } };
 export const ListTronNetwork: IListTronNetwork = {
   TronMainet: { chainId: '728126428', url: 'https://api.trongrid.io' },
   TronShasta: { chainId: '2494104990', url: 'https://api.shasta.trongrid.io' },
   TronNile: { chainId: '3448148188', url: 'https://nile.trongrid.io' },
 };
 
-type IListRPCURL = { [key: string]: string };
 export const ListRPCURL: IListRPCURL = {
   '728126428': 'https://api.trongrid.io',
   '2494104990': 'https://api.shasta.trongrid.io',

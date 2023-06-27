@@ -17,3 +17,11 @@ export declare enum NetworksChainId {
 export declare type Json = null | boolean | number | string | Json[] | {
     [prop: string]: Json;
 };
+export declare type IListTronNetwork = {
+    [key: string]: {
+        [key: string]: string;
+    };
+};
+export declare type IListRPCURL = {
+    [key: string]: string;
+};
